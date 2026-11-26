@@ -6,9 +6,17 @@
 <meta name="description" content="Baraat of Muhammad Naimatullah Khan and Laiba Sattar Khan, Friday 22 January 2027, Jinnah Lawn, Karachi">
 <meta property="og:title" content="Naimatullah & Laiba">
 <meta property="og:description" content="You are invited to the Baraat ceremony. Tap to open the invitation.">
+<meta property="og:image" content="icons/icon-512.png">
+<meta name="theme-color" content="#f7f1e6">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="N & L">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)} img{max-width:100%} [hidden]{display:none!important}</style>
 <title>Naimatullah & Laiba</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Amiri:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Amiri:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
 <style>
   :root {
     --ivory: #f7f1e6;
@@ -274,8 +282,33 @@
   .music.playing svg { animation: spin 6s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
+  /* Language toggle and Urdu typesetting */
+  .lang { position: fixed; left: 16px; top: calc(16px + env(safe-area-inset-top, 0px)); z-index: 15; height: 46px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--gold); background: rgba(253,249,242,.92); color: var(--henna); cursor: pointer; font-family: "Noto Nastaliq Urdu", var(--serif); font-weight: 600; font-size: 1rem; box-shadow: 0 6px 16px rgba(70,48,27,.18); }
+  .lang:focus-visible { outline: 3px solid var(--gold); }
+  body.ur .card, body.ur .cover-inner, body.ur .toast { direction: rtl; }
+  body.ur .u { font-family: "Noto Nastaliq Urdu", "Amiri", serif; letter-spacing: 0; text-transform: none; line-height: 2; font-style: normal; }
+  body.ur .name.script { font-size: clamp(1.6rem, 7vw, 2rem); }
+  body.ur .ceremony { font-size: clamp(1.8rem, 7.5vw, 2.3rem); line-height: 1.9; }
+  body.ur .closing .script, body.ur .venue, body.ur .dua-btn { font-size: 1.35rem; }
+  body.ur .label { font-size: .95rem; }
+  body.ur .datebar .day, body.ur .fc { font-family: var(--serif); }
+  body.ur .btn { font-size: 1rem; }
+
+  /* Bismillah writes itself from right to left */
+  .bis-wrap { position: relative; display: inline-block; }
+  .bismillah.write { animation: writein 2.4s cubic-bezier(.3,.6,.4,1) .3s both; }
+  @keyframes writein { from { clip-path: inset(-20% 0 -20% 100%); } to { clip-path: inset(-20% 0 -20% 0); } }
+  .bis-wrap.write::after { content: ""; position: absolute; top: 50%; margin-top: -6px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle, #fff3c4, rgba(216,181,111,0) 70%); box-shadow: 0 0 14px 5px rgba(216,181,111,.8); animation: pen 2.4s cubic-bezier(.3,.6,.4,1) .3s both; pointer-events: none; }
+  @keyframes pen { from { left: 100%; opacity: 1; } 85% { opacity: 1; } to { left: 0; opacity: 0; } }
+
+  /* Wedding day banner */
+  .today { margin: 0 0 14px; padding: 14px 14px 16px; border-radius: 14px; background: linear-gradient(160deg, #fffdf8, #f6ecd8); border: 1px solid rgba(180,138,60,.5); }
+  .today .script { font-size: 2rem; line-height: 1.1; color: var(--henna); }
+  .today .btn { margin-top: 10px; }
+  .ios-hint { margin: 14px auto 0; font-size: .92rem; font-style: italic; color: var(--henna); max-width: 30ch; }
+
   @media (prefers-reduced-motion: reduce) {
-    .tap-hint, .music.playing svg, .heart, .env-wrap, .seal, .seal::after, .gold, .event-badge, .btn.primary, .butterfly, .butterfly *, .crest .star, .fc .flip-up, .fc .flip-down, .lantern { animation: none !important; }
+    .tap-hint, .music.playing svg, .heart, .env-wrap, .bismillah.write, .bis-wrap.write::after, .seal, .seal::after, .gold, .event-badge, .btn.primary, .butterfly, .butterfly *, .crest .star, .fc .flip-up, .fc .flip-down, .lantern { animation: none !important; }
     .mehndi.draw path, .mehndi.draw circle, .mehndi.draw .dot { animation: none !important; stroke-dashoffset: 0; opacity: 1; fill-opacity: 1; }
     .is-animating .reveal { animation: none; opacity: 1; transform: none; }
     .envelope, .envelope .flap, .envelope .letter, #cover, .flip .inner { transition-duration: .01s; transition-delay: 0s; }
@@ -287,6 +320,7 @@
 
 <canvas id="fx" aria-hidden="true"></canvas>
 <audio id="naat" loop preload="auto"></audio>
+<button class="lang" id="lang" type="button" aria-label="Switch language">اردو</button>
 <button class="music" id="music" hidden aria-label="Pause music" aria-pressed="true">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>
 </button>
@@ -294,7 +328,7 @@
 <div id="cover">
   <div class="cover-inner">
     <div class="flash" id="flash"></div>
-    <div class="label">You are invited</div>
+    <div class="label" data-i18n="invited">You are invited</div>
     <div class="env-wrap">
       <button class="envelope" id="envelope" aria-label="Open the invitation">
         <div class="pocket"></div>
@@ -304,7 +338,7 @@
         <div class="seal" id="seal"><span>N L</span></div>
       </button>
     </div>
-    <div class="tap-hint label">Tap the seal to open</div>
+    <div class="tap-hint label" data-i18n="tap">Tap the seal to open</div>
   </div>
 </div>
 
@@ -364,6 +398,11 @@
     <svg class="ornament br" width="110" height="110" viewBox="0 0 110 110" aria-hidden="true"><use href="#orn"/></svg>
     <svg class="lantern" viewBox="0 0 42 90" aria-hidden="true"><use href="#lanternpath"/></svg>
 
+    <div class="today reveal" id="today" hidden>
+      <div class="label" data-i18n="todayLabel">Today is the day</div>
+      <div class="script" data-i18n="todayLine">The Baraat is tonight</div>
+      <a class="btn primary" id="btn-dir" href="#" target="_blank" rel="noopener"><span data-i18n="directions">Get directions</span></a>
+    </div>
     <div class="reveal" style="--i:0">
       <div class="crest" aria-hidden="true">
         <svg viewBox="0 0 200 56">
@@ -410,28 +449,28 @@
         <path d="M200 58 q 5 7 0 14 q -5 -7 0 -14 Z"/>
         <circle class="dot" cx="200" cy="12" r="1.8"/>
       </svg>
-      <div class="bismillah">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
+      <div class="bis-wrap" id="bis-wrap"><div class="bismillah" id="bismillah">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div></div>
       <div class="pearls" aria-hidden="true"></div>
-      <p class="lead">With the blessings of Allah<br>and the love of our families</p>
-      <p class="lead" style="margin-top:10px">We cordially invite you to the</p>
-      <div class="ceremony gold">Baraat Ceremony</div>
-      <div class="label">of our beloved</div>
+      <p class="lead" data-i18n="lead1">With the blessings of Allah<br>and the love of our families</p>
+      <p class="lead" style="margin-top:10px" data-i18n="lead2">We cordially invite you to the</p>
+      <div class="ceremony gold" data-i18n="ceremony">Baraat Ceremony</div>
+      <div class="label" data-i18n="beloved">of our beloved</div>
     </div>
 
-    <p class="guest reveal" style="--i:1">Dear <b id="guest-name">Guest</b></p>
+    <p class="guest reveal" style="--i:1"><span data-i18n="dear">Dear</span> <b id="guest-name" data-i18n="guest">Guest</b></p>
 
     <div class="people">
       <div class="flip reveal" style="--i:2" role="button" tabindex="0" aria-label="Groom card, tap to flip">
         <div class="inner">
           <div class="face front">
-            <div class="label">The Groom</div>
-            <h1 class="name script">Muhammad Naimatullah Khan</h1>
-            <div class="hint">Tap to flip</div>
+            <div class="label" data-i18n="groom">The Groom</div>
+            <h1 class="name script" data-i18n="groomName">Muhammad Naimatullah Khan</h1>
+            <div class="hint" data-i18n="flip">Tap to flip</div>
           </div>
           <div class="face back">
-            <div class="label">Son of</div>
-            <div class="name">M Afzal Khan</div>
-            <p>Please keep him in your prayers.</p>
+            <div class="label" data-i18n="sonOf">Son of</div>
+            <div class="name" data-i18n="groomFather">M Afzal Khan</div>
+            <p data-i18n="prayHim">Please keep him in your prayers.</p>
           </div>
         </div>
       </div>
@@ -439,26 +478,26 @@
       <div class="flip reveal" style="--i:4" role="button" tabindex="0" aria-label="Bride card, tap to flip">
         <div class="inner">
           <div class="face front">
-            <div class="label">The Bride</div>
-            <h1 class="name script">Laiba Sattar Khan</h1>
-            <div class="hint">Tap to flip</div>
+            <div class="label" data-i18n="bride">The Bride</div>
+            <h1 class="name script" data-i18n="brideName">Laiba Sattar Khan</h1>
+            <div class="hint" data-i18n="flip">Tap to flip</div>
           </div>
           <div class="face back">
-            <div class="label">Daughter of</div>
-            <div class="name">Sattar Khan</div>
-            <p>Please keep her in your prayers.</p>
+            <div class="label" data-i18n="daughterOf">Daughter of</div>
+            <div class="name" data-i18n="brideFather">Sattar Khan</div>
+            <p data-i18n="prayHer">Please keep her in your prayers.</p>
           </div>
         </div>
       </div>
     </div>
 
     <div class="reveal" style="--i:5">
-      <p class="blessing">May Allah bless this union with love, happiness and endless barakah.</p>
+      <p class="blessing" data-i18n="blessing">May Allah bless this union with love, happiness and endless barakah.</p>
       <svg class="flourish" viewBox="0 0 120 18" aria-hidden="true"><use href="#flourishpath"/></svg>
     </div>
 
     <section class="event reveal" style="--i:6" aria-label="Event details">
-      <span class="event-badge">Baraat</span>
+      <span class="event-badge" data-i18n="baraat">Baraat</span>
       <div class="scratch-wrap">
         <div class="scratch-under">
           <div class="datebar">
@@ -478,43 +517,48 @@
         </div>
         <canvas id="scratch" aria-label="Scratch to reveal the date and venue"></canvas>
       </div>
-      <div class="scratch-caption" id="scratch-caption">Scratch the gold card to reveal the date and venue</div>
+      <div class="scratch-caption" id="scratch-caption" data-i18n="scratch">Scratch the gold card to reveal the date and venue</div>
 
       <div class="countdown" id="countdown" aria-live="polite">
-        <div class="unit"><div class="fc" id="cd-d"><div class="up"><span>0</span></div><div class="down"><span>0</span></div><div class="flip-up"><span>0</span></div><div class="flip-down"><span>0</span></div></div><small>Days</small></div>
-        <div class="unit"><div class="fc" id="cd-h"><div class="up"><span>00</span></div><div class="down"><span>00</span></div><div class="flip-up"><span>00</span></div><div class="flip-down"><span>00</span></div></div><small>Hours</small></div>
-        <div class="unit"><div class="fc" id="cd-m"><div class="up"><span>00</span></div><div class="down"><span>00</span></div><div class="flip-up"><span>00</span></div><div class="flip-down"><span>00</span></div></div><small>Mins</small></div>
-        <div class="unit"><div class="fc" id="cd-s"><div class="up"><span>00</span></div><div class="down"><span>00</span></div><div class="flip-up"><span>00</span></div><div class="flip-down"><span>00</span></div></div><small>Secs</small></div>
+        <div class="unit"><div class="fc" id="cd-d"><div class="up"><span>0</span></div><div class="down"><span>0</span></div><div class="flip-up"><span>0</span></div><div class="flip-down"><span>0</span></div></div><small data-i18n="days">Days</small></div>
+        <div class="unit"><div class="fc" id="cd-h"><div class="up"><span>00</span></div><div class="down"><span>00</span></div><div class="flip-up"><span>00</span></div><div class="flip-down"><span>00</span></div></div><small data-i18n="hours">Hours</small></div>
+        <div class="unit"><div class="fc" id="cd-m"><div class="up"><span>00</span></div><div class="down"><span>00</span></div><div class="flip-up"><span>00</span></div><div class="flip-down"><span>00</span></div></div><small data-i18n="mins">Mins</small></div>
+        <div class="unit"><div class="fc" id="cd-s"><div class="up"><span>00</span></div><div class="down"><span>00</span></div><div class="flip-up"><span>00</span></div><div class="flip-down"><span>00</span></div></div><small data-i18n="secs">Secs</small></div>
       </div>
-      <div class="countdown-done" id="countdown-done" hidden>The day is here. Welcome!</div>
+      <div class="countdown-done" id="countdown-done" data-i18n="done" hidden>The day is here. Welcome!</div>
     </section>
 
     <div class="dua reveal" style="--i:7">
       <button class="dua-btn" id="dua-btn" type="button">
-        Send a dua for the couple
-        <small id="dua-count">Tap to send your blessings</small>
+        <span data-i18n="dua">Send a dua for the couple</span>
+        <small id="dua-count" data-i18n="duaHint">Tap to send your blessings</small>
       </button>
     </div>
 
     <div class="actions reveal" style="--i:8">
       <a class="btn primary" id="btn-cal" href="#" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
-        Add to calendar
+        <span data-i18n="cal">Add to calendar</span>
       </a>
       <a class="btn" id="btn-map" href="#" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 22s7-6.3 7-12a7 7 0 1 0-14 0c0 5.7 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>
-        Open in Maps
+        <span data-i18n="map">Open in Maps</span>
       </a>
+      <button class="btn" id="btn-install" type="button" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 7v7m-3-3 3 3 3-3"/></svg>
+        <span data-i18n="install">Save to phone</span>
+      </button>
     </div>
 
     <div class="closing reveal" style="--i:9">
       <svg class="flourish" viewBox="0 0 120 18" aria-hidden="true" style="margin-bottom:10px"><use href="#flourishpath"/></svg>
-      <div class="script">Your presence will make our happiness complete</div>
+      <div class="script" data-i18n="closing">Your presence will make our happiness complete</div>
       <div class="families">
-        <span>With love from</span>
-        The families of M Afzal Khan and Sattar Khan
+        <span data-i18n="from">With love from</span>
+        <span data-i18n="families" style="display:inline;font:inherit;letter-spacing:0;text-transform:none;color:inherit">The families of M Afzal Khan and Sattar Khan</span>
       </div>
-      <button class="share" id="btn-share" type="button">Share this invitation</button>
+      <button class="share" id="btn-share" type="button" data-i18n="share">Share this invitation</button>
+      <p class="ios-hint" id="ios-hint" data-i18n="iosHint" hidden>To keep this card on your phone: tap Share, then "Add to Home Screen".</p>
       <svg class="mehndi bottom" viewBox="0 0 400 76" aria-hidden="true">
         <g>
           <path d="M200 40 C 232 40, 248 18, 282 28 S 332 64, 362 42 S 390 26, 398 32"/>
@@ -569,6 +613,61 @@
   };
   const NAAT_SRC = "naat.mp3";              // Wedding Nasheed, Maruf Mohammad Jisan
 
+  /* ---------- Language ---------- */
+  const I18N = {
+    invited: ["You are invited", "آپ مدعو ہیں"],
+    tap: ["Tap the seal to open", "کھولنے کے لیے مہر پر ٹیپ کریں"],
+    todayLabel: ["Today is the day", "آج وہ دن ہے"],
+    todayLine: ["The Baraat is tonight", "بارات آج رات ہے"],
+    directions: ["Get directions", "راستہ دیکھیں"],
+    lead1: ["With the blessings of Allah<br>and the love of our families", "اللہ کے فضل و کرم<br>اور خاندانوں کی محبت کے ساتھ"],
+    lead2: ["We cordially invite you to the", "ہم آپ کو پرتپاک دعوت دیتے ہیں"],
+    ceremony: ["Baraat Ceremony", "تقریبِ بارات"],
+    beloved: ["of our beloved", "ہمارے پیارے"],
+    dear: ["Dear", "محترم"], guest: ["Guest", "مہمان"],
+    groom: ["The Groom", "دولہا"], bride: ["The Bride", "دلہن"],
+    groomName: ["Muhammad Naimatullah Khan", "محمد نعمت اللہ خان"], brideName: ["Laiba Sattar Khan", "لائبہ ستار خان"],
+    sonOf: ["Son of", "ولد"], daughterOf: ["Daughter of", "دختر"],
+    groomFather: ["M Afzal Khan", "ایم افضل خان"], brideFather: ["Sattar Khan", "ستار خان"],
+    prayHim: ["Please keep him in your prayers.", "اسے اپنی دعاؤں میں یاد رکھیں۔"], prayHer: ["Please keep her in your prayers.", "اسے اپنی دعاؤں میں یاد رکھیں۔"],
+    flip: ["Tap to flip", "پلٹنے کے لیے ٹیپ کریں"],
+    blessing: ["May Allah bless this union with love, happiness and endless barakah.", "اللہ اس رشتے کو محبت، خوشیوں اور بے پناہ برکتوں سے نوازے۔"],
+    baraat: ["Baraat", "بارات"],
+    scratch: ["Scratch the gold card to reveal the date and venue", "تاریخ اور مقام دیکھنے کے لیے سنہری کارڈ کو کھرچیں"],
+    saved: ["Save the date. We would love to see you there.", "تاریخ یاد رکھیں۔ آپ کی آمد ہمارے لیے باعثِ مسرت ہوگی۔"],
+    days: ["Days", "دن"], hours: ["Hours", "گھنٹے"], mins: ["Mins", "منٹ"], secs: ["Secs", "سیکنڈ"],
+    done: ["The day is here. Welcome!", "وہ دن آ گیا۔ خوش آمدید!"],
+    dua: ["Send a dua for the couple", "جوڑے کے لیے دعا بھیجیں"],
+    duaHint: ["Tap to send your blessings", "دعا بھیجنے کے لیے ٹیپ کریں"],
+    duaOne: ["You have sent 1 dua", "آپ نے 1 دعا بھیجی ہے"], duaMany: ["You have sent {n} duas", "آپ نے {n} دعائیں بھیجی ہیں"],
+    cal: ["Add to calendar", "کیلنڈر میں شامل کریں"], map: ["Open in Maps", "نقشے میں دیکھیں"], install: ["Save to phone", "فون میں محفوظ کریں"],
+    closing: ["Your presence will make our happiness complete", "آپ کی آمد ہماری خوشیوں کو مکمل کرے گی"],
+    from: ["With love from", "محبت کے ساتھ"], families: ["The families of M Afzal Khan and Sattar Khan", "ایم افضل خان اور ستار خان کے خاندان"],
+    share: ["Share this invitation", "یہ دعوت نامہ شیئر کریں"], copied: ["Link copied", "لنک کاپی ہو گیا"],
+    iosHint: ["To keep this card on your phone: tap Share, then \"Add to Home Screen\".", "یہ کارڈ فون میں رکھنے کے لیے: شیئر دبائیں، پھر \"Add to Home Screen\" چنیں۔"],
+    venue: ["Jinnah Lawn", "جناح لان"], address: ["M.A. Jinnah Road, Saddar, Karachi", "ایم اے جناح روڈ، صدر، کراچی"],
+    at: ["At {t}", "رات {t} بجے"], foil1: ["S C R A T C H   H E R E", "یہاں کھرچیں"], foil2: ["to reveal the date and venue", "تاریخ اور مقام دیکھنے کے لیے"],
+    langBtn: ["اردو", "English"]
+  };
+  let lang = 0;
+  try { lang = localStorage.getItem("lang") === "ur" ? 1 : 0; } catch (e) {}
+  const t = (k, vars) => { let v = I18N[k][lang]; if (vars) for (const x in vars) v = v.replace("{" + x + "}", vars[x]); return v; };
+  function applyLang() {
+    document.body.classList.toggle("ur", lang === 1);
+    document.documentElement.lang = lang ? "ur" : "en";
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const k = el.dataset.i18n; if (!I18N[k]) return;
+      if (k === "guest" && guest) return;                  // personal name stays as typed in the link
+      el.innerHTML = t(k); el.classList.add("u");
+    });
+    document.getElementById("lang").textContent = t("langBtn");
+    renderEvent(); duaCount.textContent = duaText(duas);
+  }
+  document.getElementById("lang").addEventListener("click", () => {
+    lang = 1 - lang; try { localStorage.setItem("lang", lang ? "ur" : "en"); } catch (e) {}
+    applyLang(); if (typeof repaintFoil === "function") repaintFoil();
+  });
+
   const start = new Date(EVENT.start);
   const pad = n => String(n).padStart(2, "0");
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -580,14 +679,18 @@
   const guest = (params.get("to") || "").trim().slice(0, 60);
   if (guest) document.getElementById("guest-name").textContent = guest;
 
-  const L = "en-GB";
-  document.getElementById("ev-weekday").textContent = start.toLocaleDateString(L, { weekday: "long" });
-  document.getElementById("ev-day").textContent = pad(start.getDate());
-  document.getElementById("ev-month").textContent = start.toLocaleDateString(L, { month: "long" });
-  document.getElementById("ev-year").textContent = start.getFullYear();
-  document.getElementById("ev-time").textContent = "At " + start.toLocaleTimeString(L, { hour: "numeric", minute: "2-digit", hour12: true }).toUpperCase();
-  document.getElementById("ev-venue").textContent = EVENT.venue;
-  document.getElementById("ev-address").textContent = EVENT.address;
+  function renderEvent() {
+    const L = lang ? "ur-PK" : "en-GB";
+    document.getElementById("ev-weekday").textContent = start.toLocaleDateString(L, { weekday: "long" });
+    document.getElementById("ev-day").textContent = pad(start.getDate());
+    document.getElementById("ev-month").textContent = start.toLocaleDateString(L, { month: "long" });
+    document.getElementById("ev-year").textContent = start.getFullYear();
+    const time = lang ? start.toLocaleTimeString("en-GB", { hour: "numeric", hour12: true }).replace(/\s?pm/i, "") : start.toLocaleTimeString("en-GB", { hour: "numeric", minute: "2-digit", hour12: true }).toUpperCase();
+    document.getElementById("ev-time").textContent = t("at", { t: time });
+    document.getElementById("ev-venue").textContent = t("venue");
+    document.getElementById("ev-address").textContent = t("address");
+    ["ev-weekday", "ev-month", "ev-time", "ev-venue", "ev-address"].forEach(id => document.getElementById(id).classList.add("u"));
+  }
 
   const fmt = d => d.toISOString().replace(/[-:]|\.\d{3}/g, "");
   document.getElementById("btn-cal").href =
@@ -597,6 +700,12 @@
     "&location=" + encodeURIComponent(EVENT.venue + ", " + EVENT.address) +
     "&details=" + encodeURIComponent("Wedding of Muhammad Naimatullah Khan and Laiba Sattar Khan");
   document.getElementById("btn-map").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(EVENT.mapQuery);
+  document.getElementById("btn-dir").href = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(EVENT.mapQuery) + "&travelmode=driving";
+
+  /* ---------- Wedding day mode (add ?preview=today to the link to see it) ---------- */
+  const karachiToday = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Karachi", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+  const isToday = karachiToday === EVENT.start.slice(0, 10) || params.get("preview") === "today";
+  if (isToday) document.getElementById("today").hidden = false;
 
   /* ---------- Flip clock countdown ---------- */
   const flips = {};
@@ -771,8 +880,26 @@
       addEventListener("deviceorientation", onOrient, true);
     } catch (e) {}
   }
-  addEventListener("pointermove", e => { if (tiltOn || reduced || e.pointerType === "touch") return; setTilt((e.clientX / innerWidth - .5) * 2, (e.clientY / innerHeight - .5) * 2); });
-  addEventListener("touchmove", e => { if (tiltOn || reduced) return; const t = e.touches[0]; if (!t) return; setTilt((t.clientX / innerWidth - .5) * 1.2, (t.clientY / innerHeight - .5) * 1.2); }, { passive: true });
+  addEventListener("pointermove", e => { if (e.pointerType !== "touch") trail(e.clientX, e.clientY); if (tiltOn || reduced || e.pointerType === "touch") return; setTilt((e.clientX / innerWidth - .5) * 2, (e.clientY / innerHeight - .5) * 2); });
+  addEventListener("touchmove", e => { const p = e.touches[0]; if (!p) return; trail(p.clientX, p.clientY); if (tiltOn || reduced) return; setTilt((p.clientX / innerWidth - .5) * 1.2, (p.clientY / innerHeight - .5) * 1.2); }, { passive: true });
+
+  /* ---------- Finger trail: gold dust and pearls follow the touch ---------- */
+  let lastTrail = 0;
+  function trail(x, y) {
+    const now = performance.now();
+    if (!opened || reduced || now - lastTrail < 40) return; lastTrail = now;
+    emit("sparkle", 1, x * dpr, y * dpr, { colors: GOLD, minSp: .2, maxSp: 1.4, minR: 1.2, maxR: 2.6, minDecay: .025, maxDecay: .045 });
+    if (Math.random() < .3) emit("pearl", 1, x * dpr, y * dpr, { minSp: .3, maxSp: 1.5, minR: 1.6, maxR: 2.6, minDecay: .02, maxDecay: .035 });
+  }
+
+  /* ---------- Save to phone (install) ---------- */
+  let installEvent = null;
+  const installBtn = document.getElementById("btn-install");
+  addEventListener("beforeinstallprompt", e => { e.preventDefault(); installEvent = e; installBtn.hidden = false; });
+  installBtn.addEventListener("click", async () => { if (!installEvent) return; installEvent.prompt(); await installEvent.userChoice; installEvent = null; installBtn.hidden = true; });
+  addEventListener("appinstalled", () => { installBtn.hidden = true; });
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent), standalone = navigator.standalone === true || matchMedia("(display-mode: standalone)").matches;
+  if (isIOS && !standalone && location.protocol === "https:" && !/claude\.ai$/.test(location.hostname)) document.getElementById("ios-hint").hidden = false;
 
   /* ---------- Mehndi drawing ---------- */
   function drawMehndi(svg) {
@@ -805,7 +932,9 @@
       invite.hidden = false; invite.classList.add("is-animating");
       cover.classList.add("away");
       drawMehndi(document.querySelector(".mehndi.top"));
+      document.getElementById("bismillah").classList.add("write"); document.getElementById("bis-wrap").classList.add("write");
       initScratch(); ambientButterflies();
+      if (isToday) fireworksShow(12);
       for (let i = 0; i < 18; i++) parts.push(spawnPetal(true));
       fireworksShow(8);
       setTimeout(() => cover.remove(), 1100);
@@ -842,6 +971,7 @@
   });
 
   // Scratch card
+  let repaintFoil = null;
   function initScratch() {
     const c = document.getElementById("scratch"), sctx = c.getContext("2d");
     const caption = document.getElementById("scratch-caption");
@@ -856,14 +986,16 @@
       sctx.fillStyle = "rgba(255,250,235,.25)";
       for (let i = 0; i < 160; i++) sctx.fillRect(Math.random() * SW, Math.random() * SH, 2 * dpr, 2 * dpr);
       sctx.fillStyle = "#3a2510"; sctx.textAlign = "center"; sctx.textBaseline = "middle";
-      sctx.font = `700 ${12 * dpr}px "Cormorant Garamond", Georgia, serif`;
-      sctx.fillText("S C R A T C H   H E R E", SW / 2, SH / 2 - 14 * dpr);
-      sctx.font = `italic ${16 * dpr}px "Cormorant Garamond", Georgia, serif`;
-      sctx.fillText("to reveal the date and venue", SW / 2, SH / 2 + 10 * dpr);
+      const ff = lang ? '"Noto Nastaliq Urdu", "Amiri", serif' : '"Cormorant Garamond", Georgia, serif';
+      sctx.font = `700 ${(lang ? 15 : 12) * dpr}px ${ff}`;
+      sctx.fillText(t("foil1"), SW / 2, SH / 2 - 14 * dpr);
+      sctx.font = `${lang ? "" : "italic "}${(lang ? 13 : 16) * dpr}px ${ff}`;
+      sctx.fillText(t("foil2"), SW / 2, SH / 2 + (lang ? 14 : 10) * dpr);
       sctx.globalCompositeOperation = "destination-out";
       sctx.lineCap = "round"; sctx.lineJoin = "round"; sctx.lineWidth = 44 * dpr;
     }
     paintFoil();
+    repaintFoil = () => { if (!done) paintFoil(); };
     addEventListener("resize", () => { if (!done) paintFoil(); });
     const pos = e => { const r = c.getBoundingClientRect(); return { x: (e.clientX - r.left) * dpr, y: (e.clientY - r.top) * dpr, cx: e.clientX * dpr, cy: e.clientY * dpr }; };
     function scratch(p) {
@@ -879,7 +1011,7 @@
     function finish() {
       if (done) return; done = true;
       c.classList.add("done");
-      caption.textContent = "Save the date. We would love to see you there.";
+      caption.textContent = t("saved");
       const r = c.getBoundingClientRect();
       burstConfetti((r.left + r.width / 2) * dpr, (r.top + r.height / 2) * dpr);
       fireworksShow(4);
@@ -897,8 +1029,9 @@
   const duaBtn = document.getElementById("dua-btn"), duaCount = document.getElementById("dua-count");
   let duas = 0;
   try { duas = parseInt(localStorage.getItem("duas") || "0", 10) || 0; } catch (e) {}
-  const duaText = n => n === 0 ? "Tap to send your blessings" : n === 1 ? "You have sent 1 dua" : `You have sent ${n} duas`;
+  const duaText = n => n === 0 ? t("duaHint") : n === 1 ? t("duaOne") : t("duaMany", { n });
   duaCount.textContent = duaText(duas);
+  applyLang();
   duaBtn.addEventListener("click", () => {
     duas++; duaCount.textContent = duaText(duas);
     try { localStorage.setItem("duas", String(duas)); } catch (e) {}
@@ -922,10 +1055,13 @@
     const data = { title: "Naimatullah & Laiba", text: "You are invited to the Baraat of Naimatullah and Laiba", url: location.href };
     try {
       if (navigator.share) { await navigator.share(data); return; }
-      await navigator.clipboard.writeText(location.href); showToast("Link copied");
+      await navigator.clipboard.writeText(location.href); showToast(t("copied"));
     } catch (e) {}
   });
 </script>
 
+<script>
+  if ("serviceWorker" in navigator && location.protocol === "https:") addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+</script>
 </body>
 </html>

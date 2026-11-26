@@ -1,0 +1,14 @@
+{
+  "name": "Naimatullah & Laiba",
+  "short_name": "N & L",
+  "description": "Baraat invitation, Friday 22 January 2027, Jinnah Lawn, Karachi",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f1e6",
+  "theme_color": "#f7f1e6",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

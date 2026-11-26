@@ -1,5 +1,5 @@
 // Offline copy of the invitation. The page itself is fetched fresh first, so updates show on the next open.
-const CACHE = "nl-invite-v29";
+const CACHE = "nl-invite-v30";
 const ASSETS = ["./", "index.html", "naat.mp3", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png", "icons/icon-180.png", "mosque.jpg"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting())); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });

@@ -204,7 +204,7 @@
   .flip .hint { font-family: var(--serif); font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; opacity: .55; margin-top: 6px; }
   .flip .back p { margin: 4px 0 0; font-style: italic; font-size: 1rem; opacity: .9; }
   .amp { display: flex; align-items: center; justify-content: center; gap: 14px; }
-  .amp svg { width: 20px; height: 20px; color: var(--gold); }
+  .amp .label { color: var(--henna); letter-spacing: .3em; }
   .amp::before, .amp::after { content: ""; width: 44px; height: 1px; background: var(--gold-light); }
 
   .blessing { margin: 20px auto 0; font-style: italic; font-size: 1.08rem; max-width: 32ch; color: var(--ink); }
@@ -224,6 +224,7 @@
   .venue-row svg { width: 16px; height: 16px; color: var(--gold); flex: none; }
   .scratch-under .venue { font-family: var(--script); font-size: 1.9rem; line-height: 1; color: var(--henna); }
   .scratch-under .address { font-size: .9rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; margin-top: 6px; color: var(--ink); }
+  .schedule { margin-top: 10px; font-size: .9rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; color: var(--henna); }
   #scratch { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: crosshair; border-radius: 14px; transition: opacity .7s ease; }
   #scratch.done { opacity: 0; pointer-events: none; }
   .scratch-caption { margin-top: 10px; font-size: .98rem; font-style: italic; color: var(--henna); min-height: 1.4em; }
@@ -563,7 +564,7 @@
             </div>
           </div>
         </div>
-        <div class="amp reveal" style="--i:3"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#heartpath" fill="currentColor"/></svg></div>
+        <div class="amp reveal" style="--i:3"><span class="label" data-i18n="with">with</span></div>
         <div class="flip reveal" style="--i:4" role="button" tabindex="0" aria-label="Groom card, tap to flip">
           <div class="inner">
             <div class="face front">
@@ -603,6 +604,7 @@
               <div class="venue script" id="ev-venue"></div>
             </div>
             <div class="address" id="ev-address"></div>
+            <div class="schedule" data-i18n="schedule">Dinner 9 PM &middot; Rukhsati 10 PM</div>
           </div>
           <canvas id="scratch" aria-label="Scratch to reveal the date and venue"></canvas>
         </div>
@@ -641,10 +643,6 @@
       <div class="closing reveal" style="--i:9">
         <svg class="flourish" viewBox="0 0 120 18" aria-hidden="true" style="margin-bottom:10px"><use href="#flourishpath"/></svg>
         <div class="script" data-i18n="closing">Your presence will make our happiness complete</div>
-        <div class="families">
-          <span data-i18n="from">With love from</span>
-          <span data-i18n="families" style="display:inline;font:inherit;letter-spacing:0;text-transform:none;color:inherit">The families of Muhammad Sattar and M Afzal Khan</span>
-        </div>
         <button class="share" id="btn-share" type="button" data-i18n="share">Share this invitation</button>
         <p class="ios-hint" id="ios-hint" data-i18n="iosHint" hidden>To keep this card on your phone: tap Share, then "Add to Home Screen".</p>
         <svg class="mehndi bottom" viewBox="0 0 400 76" aria-hidden="true">
@@ -718,7 +716,8 @@
     lead2: ["Mr. &amp; Mrs. Muhammad Sattar<br>cordially invite you to the", "جناب و بیگم محمد ستار<br>آپ کو پرتپاک دعوت دیتے ہیں"],
     ceremony: ["Wedding Ceremony", "تقریبِ شادی"],
     beloved: ["of their beloved daughter", "اپنی پیاری بیٹی"],
-    dear: ["Dear", "محترم"], guest: ["Guest", "مہمان"],
+    dear: ["Dear", "محترم"], guest: ["Guest", "مہمان"], with: ["with", "کے ساتھ"],
+    schedule: ["Dinner 9 PM &middot; Rukhsati 10 PM", "ڈنر رات 9 بجے &middot; رخصتی رات 10 بجے"],
     groom: ["The Groom", "دولہا"], bride: ["The Bride", "دلہن"],
     groomName: ["Muhammad Naimatullah Khan", "محمد نعمت اللہ خان"], brideName: ["Laiba Sattar", "لائبہ ستار"],
     sonOf: ["Son of", "ولد"], daughterOf: ["Daughter of", "دختر"],
@@ -740,7 +739,7 @@
     share: ["Share this invitation", "یہ دعوت نامہ شیئر کریں"], copied: ["Link copied", "لنک کاپی ہو گیا"],
     iosHint: ["To keep this card on your phone: tap Share, then \"Add to Home Screen\".", "یہ کارڈ فون میں رکھنے کے لیے: شیئر دبائیں، پھر \"Add to Home Screen\" چنیں۔"],
     venue: ["Jinnah Lawn", "جناح لان"], address: ["M.A. Jinnah Road, Saddar, Karachi", "ایم اے جناح روڈ، صدر، کراچی"],
-    at: ["At {t}", "رات {t} بجے"], foil1: ["S C R A T C H   H E R E", "یہاں کھرچیں"], foil2: ["to reveal the date and venue", "تاریخ اور مقام دیکھنے کے لیے"],
+    at: ["{t}", "رات {t} بجے"], foil1: ["S C R A T C H   H E R E", "یہاں کھرچیں"], foil2: ["to reveal the date and venue", "تاریخ اور مقام دیکھنے کے لیے"],
     langBtn: ["اردو", "English"]
   };
   let lang = 0;
@@ -779,7 +778,7 @@
     document.getElementById("ev-day").textContent = pad(start.getDate());
     document.getElementById("ev-month").textContent = start.toLocaleDateString(L, { month: "long" });
     document.getElementById("ev-year").textContent = start.getFullYear();
-    const time = lang ? start.toLocaleTimeString("en-GB", { hour: "numeric", hour12: true }).replace(/\s?pm/i, "") : start.toLocaleTimeString("en-GB", { hour: "numeric", minute: "2-digit", hour12: true }).toUpperCase();
+    const time = lang ? start.toLocaleTimeString("en-GB", { hour: "numeric", hour12: true }).replace(/\s?pm/i, "") : start.toLocaleTimeString("en-GB", { hour: "numeric", hour12: true }).toUpperCase();
     document.getElementById("ev-time").textContent = t("at", { t: time });
     document.getElementById("ev-venue").textContent = t("venue");
     document.getElementById("ev-address").textContent = t("address");

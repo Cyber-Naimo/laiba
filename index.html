@@ -101,7 +101,8 @@
   @keyframes sweep { to { transform: rotate(360deg); } }
   @keyframes sealpulse { 0%,100% { box-shadow: 0 8px 18px rgba(70,48,27,.35), inset 0 0 0 3px rgba(255,255,255,.2), 0 0 0 6px rgba(216,181,111,.25); } 50% { box-shadow: 0 8px 18px rgba(70,48,27,.35), inset 0 0 0 3px rgba(255,255,255,.2), 0 0 0 14px rgba(216,181,111,0); } }
   .farman.open .seal { transform: scale(1.08); animation: none; box-shadow: 0 8px 18px rgba(70,48,27,.35), inset 0 0 0 3px rgba(255,255,255,.2), 0 0 0 10px rgba(216,181,111,.35); }
-  .tap-hint { margin-top: 28px; color: var(--henna); animation: pulse 2.2s ease-in-out infinite; }
+  .tap-hint { margin-top: 28px; color: var(--henna); animation: pulse 2.2s ease-in-out infinite; transition: opacity .4s; }
+  .tap-hint.off { opacity: 0; animation: none; }
   @keyframes pulse { 0%,100% { opacity: .55 } 50% { opacity: 1 } }
 
   /* Butterflies */
@@ -951,6 +952,7 @@
   farman.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); paper.classList.add("animate"); unroll(); } });
   function unroll() {
     if (unrolled) return; unrolled = true;
+    document.querySelector(".tap-hint").classList.add("off");
     setH(FULL);
     if (navigator.vibrate) navigator.vibrate(20);
     setTimeout(openInvite, reduced ? 50 : 1250);

@@ -118,7 +118,7 @@
   .card-wrap { position: relative; z-index: 1; width: min(100%, 430px); margin-top: 236px; }
 
   /* ---------- Card ---------- */
-  .card { width: 100%; background: var(--parchment); border-radius: 18px; box-shadow: var(--shadow); position: relative; overflow: hidden; padding: 116px 24px 190px; text-align: center; transform: rotateY(calc(var(--tx) * 4deg)) rotateX(calc(var(--ty) * -4deg)); transition: transform .25s ease-out; transform-style: preserve-3d; }
+  .card { width: 100%; background: var(--parchment); border-radius: 18px; box-shadow: var(--shadow); position: relative; overflow: hidden; padding: 116px 24px 235px; text-align: center; transform: rotateY(calc(var(--tx) * 4deg)) rotateX(calc(var(--ty) * -4deg)); transition: transform .25s ease-out; transform-style: preserve-3d; }
   .card::before { content: ""; position: absolute; inset: 10px; pointer-events: none; z-index: 3; border: 1px solid rgba(184,146,63,.55); border-radius: 12px; }
   .card::after { content: ""; position: absolute; inset: 15px; pointer-events: none; z-index: 3; border: 1px solid rgba(184,146,63,.22); border-radius: 9px; }
   .sheen { position: absolute; inset: 0; pointer-events: none; z-index: 2; background: radial-gradient(45% 35% at calc(50% + var(--tx) * 50%) calc(30% + var(--ty) * 40%), rgba(255,255,255,.45), transparent 70%); }
@@ -126,7 +126,7 @@
   .art.arch { left: 0; right: 0; top: 0; width: 100%; height: auto; }
   .art.vines { left: 0; top: 0; width: 150px; height: auto; }
   .art.vines.r { left: auto; right: 0; transform: scaleX(-1); }
-  .art.pavilion { right: -6px; bottom: 0; width: 240px; height: auto; }
+  .art.pavilion { right: -6px; bottom: 0; width: 215px; height: auto; }
   .art.tree { left: 0; bottom: 0; width: 190px; height: auto; }
   .art.rail { left: 0; right: 0; bottom: 0; width: 100%; height: auto; }
   .sec, .today, .lan, .lan-hint { position: relative; z-index: 1; }
@@ -174,7 +174,8 @@
 
   .names { margin-top: 14px; }
   .name { margin: 0; line-height: 1.1; text-wrap: balance; }
-  .name.script { font-size: clamp(2.7rem, 12vw, 3.5rem); color: var(--gold); padding: 6px 4px; transform: translate(calc(var(--tx) * 6px), calc(var(--ty) * 6px)); transition: transform .25s ease-out; text-shadow: 0 1px 0 rgba(255,255,255,.6); }
+  .name.script { font-size: clamp(2.6rem, 11.5vw, 3.3rem); color: var(--gold); padding: 6px 4px; transform: translate(calc(var(--tx) * 6px), calc(var(--ty) * 6px)); transition: transform .25s ease-out; text-shadow: 0 1px 0 rgba(255,255,255,.6); }
+  .name.script.long { font-size: clamp(2rem, 9vw, 2.55rem); }
   .with { font-size: 1.05rem; letter-spacing: .14em; margin: 6px 0; }
   .sof { font-size: .95rem; letter-spacing: .08em; margin-top: 4px; }
   .blessing { margin: 14px auto 0; font-style: italic; font-size: 1.02rem; max-width: 32ch; color: var(--ink); }
@@ -531,7 +532,7 @@
       <div class="names reveal" style="--i:1">
         <h1 class="name script" data-i18n="brideName">Laiba Sattar</h1>
         <div class="caps with" data-i18n="with">with</div>
-        <h1 class="name script" data-i18n="groomName">Muhammad Naimatullah Khan</h1>
+        <h1 class="name script long" data-i18n="groomName">Muhammad Naimatullah Khan</h1>
         <div class="caps sof" data-i18n="sof">S/O. M Afzal Khan</div>
         <p class="blessing" data-i18n="blessing">May Allah bless this union with love, happiness and endless barakah.</p>
         <svg class="flourish" viewBox="0 0 120 18" aria-hidden="true"><use href="#flourishpath"/></svg>

@@ -217,6 +217,8 @@
   .scratch-under { padding: 20px 10px 20px; border-radius: 14px; background: linear-gradient(180deg, #fffdf8, #f6ecd8); border: 1px solid rgba(180,138,60,.35); }
   .datebar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
   .datebar .side { font-family: var(--serif); font-size: .82rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--ink); padding: 0 6px; }
+  #ev-time { font-size: .74rem; letter-spacing: .1em; line-height: 1.8; white-space: nowrap; }
+  #ev-time span { color: var(--gold); }
   .datebar .mid { padding: 0 14px; border-left: 1px solid var(--gold); border-right: 1px solid var(--gold); }
   .datebar .day { font-family: var(--serif); font-weight: 600; font-size: 2.8rem; line-height: 1; color: var(--henna-deep); font-variant-numeric: tabular-nums; }
   .datebar .month { font-family: var(--serif); font-size: .82rem; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; margin-top: 4px; color: var(--henna); }
@@ -598,7 +600,6 @@
               <div class="venue script" id="ev-venue"></div>
             </div>
             <div class="address" id="ev-address"></div>
-            <div class="schedule" data-i18n="schedule">Dinner 9 PM &middot; Rukhsati 10 PM</div>
           </div>
           <canvas id="scratch" aria-label="Scratch to reveal the date and venue"></canvas>
         </div>
@@ -711,7 +712,7 @@
     ceremony: ["Wedding Ceremony", "تقریبِ شادی"],
     beloved: ["of their beloved daughter", "اپنی پیاری بیٹی"],
     dear: ["Dear", "محترم"], guest: ["Guest", "مہمان"], with: ["with", "کے ساتھ"], sof: ["S/O. M Afzal Khan", "ولد ایم افضل خان"],
-    schedule: ["Dinner 9 PM &middot; Rukhsati 10 PM", "ڈنر رات 9 بجے &middot; رخصتی رات 10 بجے"],
+    times: ["<span>Arrival</span> 8 PM<br><span>Dinner</span> 9 PM<br><span>Rukhsati</span> 10 PM", "<span>آمد</span> 8 بجے<br><span>ڈنر</span> 9 بجے<br><span>رخصتی</span> 10 بجے"],
     groom: ["The Groom", "دولہا"], bride: ["The Bride", "دلہن"],
     groomName: ["Muhammad Naimatullah Khan", "محمد نعمت اللہ خان"], brideName: ["Laiba Sattar", "لائبہ ستار"],
     sonOf: ["Son of", "ولد"], daughterOf: ["Daughter of", "دختر"],
@@ -772,8 +773,7 @@
     document.getElementById("ev-day").textContent = pad(start.getDate());
     document.getElementById("ev-month").textContent = start.toLocaleDateString(L, { month: "long" });
     document.getElementById("ev-year").textContent = start.getFullYear();
-    const time = lang ? start.toLocaleTimeString("en-GB", { hour: "numeric", hour12: true }).replace(/\s?pm/i, "") : start.toLocaleTimeString("en-GB", { hour: "numeric", hour12: true }).toUpperCase();
-    document.getElementById("ev-time").textContent = t("at", { t: time });
+    document.getElementById("ev-time").innerHTML = t("times");
     document.getElementById("ev-venue").textContent = t("venue");
     document.getElementById("ev-address").textContent = t("address");
     ["ev-weekday", "ev-month", "ev-time", "ev-venue", "ev-address"].forEach(id => document.getElementById(id).classList.add("u"));

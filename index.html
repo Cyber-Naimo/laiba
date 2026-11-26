@@ -1094,11 +1094,11 @@
     scheduleAutoLight();
   }
   lanterns.forEach((lan, i) => lan.addEventListener("click", () => lightLantern(i)));
-  // Guests who do not tap still get the full card: lanterns light themselves one by one
+  // Lanterns light themselves one by one; a tap lights one sooner
   function scheduleAutoLight() {
     clearTimeout(autoTimer);
     if (litCount >= lanterns.length) return;
-    autoTimer = setTimeout(() => { const next = lanterns.findIndex(l => !l.classList.contains("lit")); if (next >= 0) lightLantern(next, true); }, litCount === 0 ? 6500 : 1600);
+    autoTimer = setTimeout(() => { const next = lanterns.findIndex(l => !l.classList.contains("lit")); if (next >= 0) lightLantern(next, true); }, litCount === 0 ? 1200 : 1100);
   }
 
   // Music

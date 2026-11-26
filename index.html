@@ -280,7 +280,8 @@
   .lang { position: fixed; left: 16px; top: calc(16px + env(safe-area-inset-top, 0px)); z-index: 15; height: 46px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--gold); background: rgba(253,249,242,.92); color: var(--henna); cursor: pointer; font-family: "Noto Nastaliq Urdu", var(--serif); font-weight: 600; font-size: 1rem; box-shadow: 0 6px 16px rgba(70,48,27,.18); }
   .lang:focus-visible { outline: 3px solid var(--gold); }
   body.ur .card, body.ur .cover-inner, body.ur .toast { direction: rtl; }
-  body.ur .u { font-family: "Noto Nastaliq Urdu", "Amiri", serif; letter-spacing: 0; text-transform: none; line-height: 2; font-style: normal; }
+  body.ur .u { font-family: "Noto Nastaliq Urdu", "Amiri", serif; letter-spacing: 0; text-transform: none; line-height: 2.4; font-style: normal; padding-top: .15em; overflow: visible; }
+  body.ur .lead { max-width: none; }
   body.ur .name.script { font-size: clamp(1.6rem, 7vw, 2rem); }
   body.ur .ceremony { font-size: clamp(1.8rem, 7.5vw, 2.3rem); line-height: 1.9; }
   body.ur .closing .script, body.ur .venue, body.ur .dua-btn { font-size: 1.35rem; }
@@ -323,7 +324,6 @@
       <div class="paper" id="paper">
         <div class="paper-inner">
           <div class="border"></div>
-          <div class="small" data-i18n="scrollTitle">Wedding Invitation</div>
           <div class="gold">L &amp; N</div>
           <div class="small" data-i18n="scrollLine">Friday, 22 January 2027</div>
           <div class="seal" id="seal"><span>L N</span></div>

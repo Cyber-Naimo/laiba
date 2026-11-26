@@ -119,8 +119,8 @@
 
   /* ---------- Paper-cut scene ---------- */
   #invite { position: relative; z-index: 2; min-height: 100%; padding-block: 0 48px; padding-inline: 16px; display: grid; justify-items: center; perspective: 1200px; }
-  #scene { position: absolute; left: 0; right: 0; top: 0; height: 360px; overflow: hidden; pointer-events: none; z-index: 0; }
-  #scene .mosque-art { position: absolute; left: 50%; top: 0; width: max(120%, 520px); max-width: 1300px; transform: translate(calc(-50% + var(--tx) * -10px), calc(var(--ty) * -4px)); transition: transform .25s ease-out; mix-blend-mode: multiply; opacity: .95; -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 100%); mask-image: linear-gradient(180deg, #000 60%, transparent 100%); }
+  #scene { position: absolute; left: 0; right: 0; top: 0; height: 360px; overflow: hidden; pointer-events: none; z-index: 0; mix-blend-mode: multiply; }
+  #scene .mosque-art { position: absolute; left: 50%; bottom: -30px; width: max(118%, 520px); max-width: 980px; transform: translate(calc(-50% + var(--tx) * -10px), calc(var(--ty) * -4px)); transition: transform .25s ease-out; opacity: .95; -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%); mask-image: linear-gradient(180deg, #000 70%, transparent 100%); }
   .card-wrap { position: relative; z-index: 1; width: min(100%, 430px); margin-top: 236px; }
 
   /* ---------- Card ---------- */

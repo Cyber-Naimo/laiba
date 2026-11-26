@@ -185,7 +185,7 @@
   @keyframes pen { from { left: 100%; opacity: 1; } 85% { opacity: 1; } to { left: 0; opacity: 0; } }
   .pearls { height: 10px; margin: 4px auto 14px; width: 56%; background: radial-gradient(circle at 50% 50%, #fffdf7 0 28%, #e6d9c3 45%, transparent 52%) 0 0 / 10px 10px repeat-x; filter: drop-shadow(0 1px 1px rgba(70,48,27,.3)); }
   .lead { font-size: 1.08rem; max-width: 34ch; margin: 8px auto 0; line-height: 1.55; color: var(--ink); }
-  .ceremony { font-size: clamp(2.6rem, 11vw, 3.2rem); line-height: 1.1; margin: 6px 0 2px; }
+  .ceremony { font-size: clamp(2.6rem, 11vw, 3.2rem); line-height: 1.1; margin: 6px 0 2px; color: #8a5f1e; }
   .guest { margin: 18px auto 0; font-size: 1.08rem; }
   .guest b { font-weight: 600; color: var(--henna); }
   .shake-hint { margin: 12px auto 0; font-size: .9rem; font-style: italic; color: var(--henna); opacity: .85; }
@@ -494,15 +494,6 @@
 
     <div class="sec" data-sec="0">
       <div class="reveal" style="--i:0">
-        <div class="crest" aria-hidden="true">
-          <svg viewBox="0 0 200 56">
-            <path class="moonpath" d="M112 6 A 22 22 0 1 0 124 42 A 17 17 0 1 1 112 6 Z" fill="#c9a05a"/>
-            <polygon class="star" points="140,14 142,19 147,19 143,22 144,27 140,24 136,27 137,22 133,19 138,19" fill="#d8b56f"/>
-            <polygon class="star" points="60,30 61.5,34 66,34 62.5,36.5 63.5,41 60,38.5 56.5,41 57.5,36.5 54,34 58.5,34" fill="#d8b56f"/>
-            <polygon class="star" points="158,38 159,41 162,41 159.5,43 160.5,46 158,44 155.5,46 156.5,43 154,41 157,41" fill="#d8b56f"/>
-            <polygon class="star" points="40,10 41,13 44,13 41.5,15 42.5,18 40,16 37.5,18 38.5,15 36,13 39,13" fill="#d8b56f"/>
-          </svg>
-        </div>
         <svg class="mehndi top" viewBox="0 0 400 76" aria-hidden="true">
           <g>
           <path d="M200 40 C 232 40, 248 18, 282 28 S 332 64, 362 42 S 390 26, 398 32"/>
@@ -543,7 +534,7 @@
         <div class="pearls" aria-hidden="true"></div>
         <p class="lead" data-i18n="lead1">With the blessings of Allah<br>and the love of our families</p>
         <p class="lead" style="margin-top:10px" data-i18n="lead2">Mr. &amp; Mrs. Muhammad Sattar<br>cordially invite you to the</p>
-        <div class="ceremony gold" data-i18n="ceremony">Wedding Ceremony</div>
+        <div class="ceremony script" data-i18n="ceremony">Wedding Ceremony</div>
         <div class="label" data-i18n="beloved">of their beloved daughter</div>
         <p class="shake-hint" id="shake-hint" data-i18n="shakeHint" hidden>Shake your phone to shower petals</p>
       </div>

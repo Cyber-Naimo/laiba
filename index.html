@@ -87,7 +87,7 @@
   .paper-inner { height: 330px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 22px 18px 18px; }
   .paper-inner .border { position: absolute; inset: 14px 10px; border: 1px solid rgba(180,138,60,.45); pointer-events: none; }
   .paper-inner .border::after { content: ""; position: absolute; inset: 4px; border: 1px solid rgba(180,138,60,.25); }
-  .paper-inner .gold { font-size: 4.4rem; line-height: 1; }
+  .paper-inner .gold { font-size: 3.8rem; line-height: 1; }
   .paper-inner .small { font-size: .98rem; font-style: italic; color: var(--henna); }
   .seal {
     position: relative; margin-top: 10px; width: 70px; height: 70px; border-radius: 50%;
@@ -100,7 +100,7 @@
   .seal::after { content: ""; position: absolute; inset: -50%; background: conic-gradient(from 0deg, transparent 0 70%, rgba(255,255,255,.55) 78%, transparent 86%); animation: sweep 3.2s linear infinite; }
   @keyframes sweep { to { transform: rotate(360deg); } }
   @keyframes sealpulse { 0%,100% { box-shadow: 0 8px 18px rgba(70,48,27,.35), inset 0 0 0 3px rgba(255,255,255,.2), 0 0 0 6px rgba(216,181,111,.25); } 50% { box-shadow: 0 8px 18px rgba(70,48,27,.35), inset 0 0 0 3px rgba(255,255,255,.2), 0 0 0 14px rgba(216,181,111,0); } }
-  .farman.open .seal { opacity: 0; transform: scale(1.6); animation: none; }
+  .farman.open .seal { transform: scale(1.08); animation: none; box-shadow: 0 8px 18px rgba(70,48,27,.35), inset 0 0 0 3px rgba(255,255,255,.2), 0 0 0 10px rgba(216,181,111,.35); }
   .tap-hint { margin-top: 28px; color: var(--henna); animation: pulse 2.2s ease-in-out infinite; }
   @keyframes pulse { 0%,100% { opacity: .55 } 50% { opacity: 1 } }
 
@@ -433,7 +433,6 @@
           <path class="frame" d="M12 76 L32 76 L29 84 L15 84 Z"/>
           <circle class="frame" cx="22" cy="88" r="2.4"/>
         </g></svg></button>
-    <div class="lan-hint" id="lan-hint" data-i18n="lanternHint">Tap the lanterns to light up the card</div>
 
     <div class="today reveal" id="today" hidden>
       <div class="label" data-i18n="todayLabel">Today is the day</div>
@@ -965,7 +964,7 @@
     flash.classList.add("go");
     farman.classList.add("open");
     setTimeout(() => { releaseButterflies(r.left + r.width / 2, r.top); emit("sparkle", 30, sx, sy - 60 * dpr, { colors: GOLD, up: true, minSp: 1, maxSp: 5, minR: 1.5, maxR: 3.5 }); }, 350);
-    const wait = reduced ? 0 : 1700;
+    const wait = reduced ? 0 : 1200;
     setTimeout(() => {
       invite.hidden = false; invite.classList.add("is-animating");
       cover.classList.add("away");
@@ -991,7 +990,6 @@
     emit("sparkle", 18, (r.left + r.width / 2) * dpr, (r.top + r.height * .6) * dpr, { colors: GOLD, minSp: .5, maxSp: 4, minR: 1.5, maxR: 3.5, minDecay: .015, maxDecay: .03 });
     if (navigator.vibrate && !auto) navigator.vibrate(15);
     if (i === 0) { drawMehndi(document.querySelector(".mehndi.top")); document.getElementById("bismillah").classList.add("write"); document.getElementById("bis-wrap").classList.add("write"); }
-    if (litCount === 1) document.getElementById("lan-hint").classList.add("off");
     if (litCount === lanterns.length) {
       card.classList.remove("dim");
       setTimeout(() => { fireworksShow(isToday ? 12 : 7); burstConfetti(); shower(8); }, 400);
